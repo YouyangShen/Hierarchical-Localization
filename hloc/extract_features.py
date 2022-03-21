@@ -76,6 +76,17 @@ confs = {
             'resize_max': 1024,
         },
     },
+    'resnet':{
+        'output': 'feats-LoFTR-r1024',
+        'model': {
+            'name': 'resnet',
+            
+        },
+        'preprocessing': {
+            'grayscale': True,
+            'resize_max': 640,
+        },
+    },
     'd2net-ss': {
         'output': 'feats-d2net-ss',
         'model': {

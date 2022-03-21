@@ -28,6 +28,12 @@ confs = {
             'sinkhorn_iterations': 50,
         },
     },
+    'loftr': {
+        'output': 'matches-loftr',
+        'model': {
+            'name': 'loftr',
+        },
+    },
     'superglue-fast': {
         'output': 'matches-superglue-it5',
         'model': {
@@ -168,8 +174,14 @@ def match_from_paths(conf: Dict,
             if pair in fd:
                 del fd[pair]
             grp = fd.create_group(pair)
-            matches = pred['matches0'][0].cpu().short().numpy()
-            grp.create_dataset('matches0', data=matches)
+            if pred['matches0'].shape == 0:
+                matches0 = [-1,-1]
+                matches1 = [-1,-1]
+            else:
+                matches0 = pred['matches0'].cpu().short().numpy()
+                matches1 = pred['matches1'].cpu().short().numpy()
+            grp.create_dataset('matches0', data=matches0)
+            grp.create_dataset('matches1', data=matches1)
 
             if 'matching_scores0' in pred:
                 scores = pred['matching_scores0'][0].cpu().half().numpy()
