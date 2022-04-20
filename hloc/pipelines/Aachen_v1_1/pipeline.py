@@ -44,26 +44,26 @@ pairs_from_covisibility.main(
 sfm_matches = match_features.main(
     matcher_conf, sfm_pairs, feature_conf['output'], outputs)
 
-triangulation.main(
-    reference_sfm,
-    sift_sfm,
-    images,
-    sfm_pairs,
-    features,
-    sfm_matches)
+# triangulation.main(
+#     reference_sfm,
+#     sift_sfm,
+#     images,
+#     sfm_pairs,
+#     features,
+#     sfm_matches)
 
-global_descriptors = extract_features.main(retrieval_conf, images, outputs)
-pairs_from_retrieval.main(
-    global_descriptors, loc_pairs, args.num_loc,
-    query_prefix='query', db_model=reference_sfm)
-loc_matches = match_features.main(
-    matcher_conf, loc_pairs, feature_conf['output'], outputs)
+# global_descriptors = extract_features.main(retrieval_conf, images, outputs)
+# pairs_from_retrieval.main(
+#     global_descriptors, loc_pairs, args.num_loc,
+#     query_prefix='query', db_model=reference_sfm)
+# loc_matches = match_features.main(
+#     matcher_conf, loc_pairs, feature_conf['output'], outputs)
 
-localize_sfm.main(
-    reference_sfm,
-    dataset / 'queries/*_time_queries_with_intrinsics.txt',
-    loc_pairs,
-    features,
-    loc_matches,
-    results,
-    covisibility_clustering=False)  # not required with SuperPoint+SuperGlue
+# localize_sfm.main(
+#     reference_sfm,
+#     dataset / 'queries/*_time_queries_with_intrinsics.txt',
+#     loc_pairs,
+#     features,
+#     loc_matches,
+#     results,
+#     covisibility_clustering=False)  # not required with SuperPoint+SuperGlue

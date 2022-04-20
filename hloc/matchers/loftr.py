@@ -29,7 +29,7 @@ class resnet(BaseModel):
         self.net = LoFTR(_default_cfg)
         # self.backbone = LoFTR(*args, **kwargs)
 
-        self.net.load_state_dict(torch.load("third_party/LoFTR/src/loftr/weights/indoor_ds_new.ckpt")['state_dict'])
+        self.net.load_state_dict(torch.load("third_party/LoFTR/src/loftr/weights/outdoor_ds.ckpt")['state_dict'])
         self.pos_encoding = self.net.pos_encoding
         self.loftr_coarse =  self.net.loftr_coarse
         self.coarse_matching = self.net.coarse_matching

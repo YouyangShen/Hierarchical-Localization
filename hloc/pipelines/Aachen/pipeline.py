@@ -4,7 +4,7 @@ import argparse
 
 from ... import extract_features, match_features
 from ... import pairs_from_covisibility, pairs_from_retrieval
-from ... import colmap_from_nvm, triangulation, localize_sfm
+from ... import colmap_from_nvm, triangulation, localize_sfm, read
 
 
 parser = argparse.ArgumentParser()
@@ -35,8 +35,8 @@ print(f'Configs for feature matchers:\n{pformat(match_features.confs)}')
 
 # pick one of the configurations for extraction and matching
 retrieval_conf = extract_features.confs['netvlad']
-feature_conf = extract_features.confs['superpoint_aachen']
-matcher_conf = match_features.confs['superglue']
+feature_conf = extract_features.confs['resnet']
+matcher_conf = match_features.confs['loftr']
 
 features = extract_features.main(feature_conf, images, outputs)
 
@@ -49,6 +49,8 @@ pairs_from_covisibility.main(
     sift_sfm, sfm_pairs, num_matched=args.num_covis)
 sfm_matches = match_features.main(
     matcher_conf, sfm_pairs, feature_conf['output'], outputs)
+
+read.update_two_h5_files(features, sfm_matches)
 
 triangulation.main(
     reference_sfm,
